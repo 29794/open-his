@@ -1,0 +1,81 @@
+package xyz.ly11.dto;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
+
+import java.time.LocalDate;
+
+/**
+ * @author by 29794
+ * @date 2020/10/16 0:10
+ */
+@ApiModel(value="xyz-ly11-dto-DictTypeDTO")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class DictTypeDTO extends BaseDTO {
+    private static final long serialVersionUID = 3096250264030832867L;
+    /**
+     * 字典主键
+     */
+    @ApiModelProperty(value="字典主键")
+    private Long dictId;
+
+    /**
+     * 字典名称
+     */
+    @NotBlank(message = "字典名称不能为空")
+    @ApiModelProperty(value="字典名称")
+    private String dictName;
+
+    /**
+     * 字典类型
+     */
+    @ApiModelProperty(value="字典类型")
+    @NotBlank(message = "字典类型不能为空")
+    private String dictType;
+
+    /**
+     * 状态（0正常 1停用）
+     */
+    @ApiModelProperty(value="状态（0正常 1停用）")
+    @NotBlank(message = "状态不能为空")
+    private String status;
+
+    /**
+     * 创建者
+     */
+    @ApiModelProperty(value="创建者")
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value="创建时间")
+    private LocalDate createTime;
+
+    /**
+     * 更新者
+     */
+    @ApiModelProperty(value="更新者")
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    @ApiModelProperty(value="更新时间")
+    private LocalDate updateTime;
+
+    /**
+     * 备注
+     */
+    @ApiModelProperty(value="备注")
+    private String remark;
+}
+
