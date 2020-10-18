@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName(value = "sys_dict_data")
 public class DictData extends BaseEntity {
+    private static final long serialVersionUID = -1046934576878968834L;
     /**
      * 字典编码
      */

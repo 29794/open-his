@@ -6,16 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import sun.util.resources.LocaleData;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author by 29794
  * @date 2020/10/15 23:39
  */
-@ApiModel(value="xyz-ly11-domain-DictType")
+@ApiModel(value="xyz-ly11-domain-DictDataDTO")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
@@ -80,7 +79,7 @@ public class DictDataDTO extends BaseDTO {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private LocaleData createTime;
+    private LocalDateTime createTime;
 
     /**
      * 更新者
@@ -92,7 +91,7 @@ public class DictDataDTO extends BaseDTO {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private LocalDate updateTime;
+    private LocalDateTime updateTime;
 
 }
 

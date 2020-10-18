@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class DictTypeDTO extends BaseDTO {
-    private static final long serialVersionUID = 3096250264030832867L;
+    private static final long serialVersionUID = 2045887795486089172L;
     /**
      * 字典主键
      */

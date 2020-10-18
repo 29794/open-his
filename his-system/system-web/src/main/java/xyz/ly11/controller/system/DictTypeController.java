@@ -39,7 +39,7 @@ public class DictTypeController {
      * 添加
      */
     @PostMapping("addDictType")
-    public AjaxResult addDictType(@Validated DictTypeDTO dictTypeDTO) {
+    public AjaxResult addDictType(@Validated @RequestBody DictTypeDTO dictTypeDTO) {
         if (dictTypeService.checkDictTypeUnique(dictTypeDTO.getDictId(), dictTypeDTO.getDictType())) {
             return AjaxResult.fail("新增字典【" + dictTypeDTO.getDictName() + "】失败，字典类型已存在");
         }
@@ -51,7 +51,7 @@ public class DictTypeController {
      * 修改
      */
     @PutMapping("updateDictType")
-    public AjaxResult updateDictType(@Validated DictTypeDTO dictTypeDTO) {
+    public AjaxResult updateDictType(@Validated @RequestBody DictTypeDTO dictTypeDTO) {
         if (dictTypeService.checkDictTypeUnique(dictTypeDTO.getDictId(), dictTypeDTO.getDictType())) {
             return AjaxResult.fail("修改字典【" + dictTypeDTO.getDictName() + "】失败，字典类型已存在");
         }
@@ -82,6 +82,21 @@ public class DictTypeController {
     @GetMapping("selectAllDictType")
     public AjaxResult selectAllDictType() {
         return AjaxResult.success(this.dictTypeService.list().getData());
+    }
+
+    /**
+     * todo 这里的缓存可以使用Spring Boot 提供的缓存机制代替
+     * 手动同步缓存至redis
+     */
+    @GetMapping("dictCacheAsync")
+    public AjaxResult dictCacheAsync() {
+        try {
+            this.dictTypeService.dictCacheAsync();
+            return AjaxResult.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.error();
+        }
     }
 
 }

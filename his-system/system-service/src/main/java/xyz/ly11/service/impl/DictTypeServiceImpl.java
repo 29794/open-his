@@ -1,25 +1,22 @@
 package xyz.ly11.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import xyz.ly11.constants.Constants;
 import xyz.ly11.domain.DictData;
-import xyz.ly11.dto.DictDataDTO;
 import xyz.ly11.dto.DictTypeDTO;
+import xyz.ly11.mapper.DictDataMapper;
 import xyz.ly11.mapper.DictTypeMapper;
 import xyz.ly11.domain.DictType;
 import xyz.ly11.service.DictTypeService;
@@ -35,8 +32,15 @@ public class DictTypeServiceImpl implements DictTypeService {
     final
     DictTypeMapper dictTypeMapper;
 
-    public DictTypeServiceImpl(DictTypeMapper dictTypeMapper) {
+    final
+    StringRedisTemplate stringRedisTemplate;
+
+    final DictDataMapper dictDataMapper;
+
+    public DictTypeServiceImpl(DictTypeMapper dictTypeMapper, StringRedisTemplate stringRedisTemplate, DictDataMapper dictDataMapper) {
         this.dictTypeMapper = dictTypeMapper;
+        this.stringRedisTemplate = stringRedisTemplate;
+        this.dictDataMapper = dictDataMapper;
     }
 
     @Override
@@ -103,6 +107,17 @@ public class DictTypeServiceImpl implements DictTypeService {
 
     @Override
     public void dictCacheAsync() {
-
+        //查询所有可用的dictType
+        QueryWrapper<DictType> qw=new QueryWrapper<>();
+        qw.ge(DictType.COL_STATUS,Constants.STATUS_TRUE);
+        List<DictType> dictTypes = this.dictTypeMapper.selectList(qw);
+        ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+        for (DictType dictType : dictTypes) {
+            QueryWrapper<DictData> qdw=new QueryWrapper<>();
+            qdw.ge(DictData.COL_STATUS,Constants.STATUS_TRUE);
+            qdw.eq(DictData.COL_DICT_TYPE,dictType.getDictType());
+            List<DictData> dictData = dictDataMapper.selectList(qdw);
+            valueOperations.set(Constants.DICT_REDIS_PREFIX +dictType.getDictType(), JSON.toJSONString(dictData));
+        }
     }
 }
