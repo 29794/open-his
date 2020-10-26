@@ -1,6 +1,7 @@
 package xyz.ly11.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -48,10 +49,10 @@ public class DictTypeServiceImpl implements DictTypeService {
         Page<DictType> page = new Page<>(dictTypeDTO.getPageNum(), dictTypeDTO.getPageSize());
         QueryWrapper<DictType> wrapper = new QueryWrapper<>();
         wrapper.like(StringUtils.isNotBlank(dictTypeDTO.getDictName()), DictType.COL_DICT_NAME, dictTypeDTO.getDictName());
-        wrapper.like(StringUtils.isNotBlank(dictTypeDTO.getDictType()), DictType.COL_DICT_TYPE, dictTypeDTO.getDictName());
+        wrapper.like(StringUtils.isNotBlank(dictTypeDTO.getDictType()), DictType.COL_DICT_TYPE, dictTypeDTO.getDictType());
         wrapper.eq(StringUtils.isNotBlank(dictTypeDTO.getStatus()), DictType.COL_STATUS, dictTypeDTO.getStatus());
         wrapper.ge(dictTypeDTO.getBeginTime() != null, DictType.COL_CREATE_TIME, dictTypeDTO.getBeginTime());
-        wrapper.ge(dictTypeDTO.getEndTime() != null, DictType.COL_CREATE_TIME, dictTypeDTO.getEndTime());
+        wrapper.le(dictTypeDTO.getEndTime() != null, DictType.COL_CREATE_TIME, dictTypeDTO.getEndTime());
         Page<DictType> dictTypePage = this.dictTypeMapper.selectPage(page, wrapper);
         return new DataGridView(dictTypePage.getTotal(), dictTypePage.getRecords());
     }
@@ -77,7 +78,7 @@ public class DictTypeServiceImpl implements DictTypeService {
         DictType dictType = new DictType();
         BeanUtil.copyProperties(dictTypeDTO, dictType);
         dictType.setCreateBy(dictTypeDTO.getSimpleUser().getUserName());
-        dictType.setCreateTime(LocalDateTime.now());
+        dictType.setCreateTime(DateUtil.date());
         return this.dictTypeMapper.insert(dictType);
     }
 
@@ -86,7 +87,7 @@ public class DictTypeServiceImpl implements DictTypeService {
         DictType dictType = new DictType();
         BeanUtil.copyProperties(dictTypeDTO, dictType);
         dictType.setUpdateBy(dictTypeDTO.getSimpleUser().getUserName());
-        dictType.setUpdateTime(LocalDateTime.now());
+        dictType.setUpdateTime(DateUtil.date());
         return this.dictTypeMapper.updateById(dictType);
     }
 

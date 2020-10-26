@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import xyz.ly11.domain.SimpleUser;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author by 29794
@@ -39,12 +39,12 @@ public class BaseDTO implements Serializable {
      * 开始时间
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate beginTime;
+    private Date beginTime;
     /**
      * 结束时间
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endTime;
+    private Date endTime;
 
 
 }

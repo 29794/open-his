@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -169,14 +171,14 @@ public class User extends BaseEntity {
      */
     @TableField(value = "create_time")
     @ApiModelProperty(value="创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
     @TableField(value = "update_time")
     @ApiModelProperty(value="更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 创建者

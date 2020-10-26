@@ -1,6 +1,7 @@
 package xyz.ly11.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -57,7 +58,7 @@ public class DictDataServiceImpl implements DictDataService {
         BeanUtil.copyProperties(dictDataDTO, dictData);
         //设置创建者，创建时间
         dictData.setCreateBy(dictDataDTO.getSimpleUser().getUserName());
-        dictData.setCreateTime(LocalDateTime.now());
+        dictData.setCreateTime(DateUtil.date());
         return this.dictDataMapper.insert(dictData);
     }
 

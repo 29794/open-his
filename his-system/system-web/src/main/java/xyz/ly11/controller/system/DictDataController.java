@@ -32,7 +32,7 @@ public class DictDataController {
      * 分页查询
      */
     @GetMapping("listForPage")
-    public AjaxResult listForPage(@RequestBody DictDataDTO dictDataDTO) {
+    public AjaxResult listForPage( DictDataDTO dictDataDTO) {
         DataGridView gridView = this.dictDataService.listPage(dictDataDTO);
         return AjaxResult.success("查询成功", gridView.getData(), gridView.getTotal());
     }
@@ -41,7 +41,7 @@ public class DictDataController {
      * 添加
      */
     @PostMapping("addDictData")
-    public AjaxResult addDictData(@RequestBody @Validated DictDataDTO dictDataDTO) {
+    public AjaxResult addDictData( @Validated DictDataDTO dictDataDTO) {
         dictDataDTO.setSimpleUser(ShiroSecurityUtils.getCurrentSimpleUser());
         return AjaxResult.toAjax(this.dictDataService.insert(dictDataDTO));
     }
@@ -50,7 +50,7 @@ public class DictDataController {
      * 修改
      */
     @PutMapping("updateDictData")
-    public AjaxResult updateDictData(@RequestBody @Validated DictDataDTO dictDataDTO) {
+    public AjaxResult updateDictData( @Validated DictDataDTO dictDataDTO) {
         dictDataDTO.setSimpleUser(ShiroSecurityUtils.getCurrentSimpleUser());
         return AjaxResult.toAjax(this.dictDataService.update(dictDataDTO));
     }
@@ -59,7 +59,7 @@ public class DictDataController {
     /**
      * 根据ID查询一个字典信息
      */
-    @GetMapping("getOne/{dictCode:\\d}")
+    @GetMapping("getOne/{dictCode:-?[1-9]\\d*}")
     public AjaxResult getDictData(@PathVariable @Validated @NotNull(message = "字典数据ID不能为空") Long dictCode) {
         return AjaxResult.success(this.dictDataService.selectDictDataById(dictCode));
     }

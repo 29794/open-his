@@ -39,7 +39,7 @@ public class DictTypeController {
      * 添加
      */
     @PostMapping("addDictType")
-    public AjaxResult addDictType(@Validated @RequestBody DictTypeDTO dictTypeDTO) {
+    public AjaxResult addDictType(@Validated DictTypeDTO dictTypeDTO) {
         if (dictTypeService.checkDictTypeUnique(dictTypeDTO.getDictId(), dictTypeDTO.getDictType())) {
             return AjaxResult.fail("新增字典【" + dictTypeDTO.getDictName() + "】失败，字典类型已存在");
         }
@@ -51,7 +51,7 @@ public class DictTypeController {
      * 修改
      */
     @PutMapping("updateDictType")
-    public AjaxResult updateDictType(@Validated @RequestBody DictTypeDTO dictTypeDTO) {
+    public AjaxResult updateDictType(@Validated DictTypeDTO dictTypeDTO) {
         if (dictTypeService.checkDictTypeUnique(dictTypeDTO.getDictId(), dictTypeDTO.getDictType())) {
             return AjaxResult.fail("修改字典【" + dictTypeDTO.getDictName() + "】失败，字典类型已存在");
         }
@@ -63,7 +63,7 @@ public class DictTypeController {
     /**
      * 根据ID查询一个字典信息
      */
-    @GetMapping("getOne/{dictId:\\d}")
+    @GetMapping("getOne/{dictId:-?[1-9]\\d*}")
     public AjaxResult getDictType(@PathVariable @Validated @NotNull(message = "字典ID不能为空") Long dictId) {
         return AjaxResult.success(this.dictTypeService.selectDictTypeById(dictId));
     }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author by 29794
@@ -79,7 +80,7 @@ public class DictDataDTO extends BaseDTO {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新者
@@ -91,7 +92,7 @@ public class DictDataDTO extends BaseDTO {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 }
 

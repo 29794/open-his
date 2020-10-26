@@ -6,21 +6,17 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @author by 29794
  * @date 2020/10/15 23:30
  */
-/**
-    * 字典类型表
-    */
 @ApiModel(value="xyz-ly11-domain-DictType")
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -69,7 +65,7 @@ public class DictType extends BaseEntity {
      */
     @TableField(value = "create_time")
     @ApiModelProperty(value="创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新者
@@ -83,7 +79,7 @@ public class DictType extends BaseEntity {
      */
     @TableField(value = "update_time")
     @ApiModelProperty(value="更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 备注
