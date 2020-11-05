@@ -9,19 +9,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-
 import xyz.ly11.constants.Constants;
 import xyz.ly11.domain.DictData;
+import xyz.ly11.domain.DictType;
 import xyz.ly11.dto.DictTypeDTO;
 import xyz.ly11.mapper.DictDataMapper;
 import xyz.ly11.mapper.DictTypeMapper;
-import xyz.ly11.domain.DictType;
 import xyz.ly11.service.DictTypeService;
 import xyz.ly11.vo.DataGridView;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author by 29794
