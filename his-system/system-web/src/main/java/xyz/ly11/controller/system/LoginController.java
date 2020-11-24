@@ -5,12 +5,13 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.ly11.aspect.annotation.Log;
+import xyz.ly11.aspect.enums.BusinessType;
 import xyz.ly11.constants.Constants;
 import xyz.ly11.constants.HttpStatus;
 import xyz.ly11.domain.Menu;
@@ -49,6 +50,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login/doLogin")
+    @Log(title = "用户登录", businessType = BusinessType.OTHER)
     public AjaxResult login(@RequestBody @Validated LoginBodyDTO loginBodyDTO, HttpServletRequest request) {
         AjaxResult ajax = AjaxResult.success();
         String username = loginBodyDTO.getUsername();
@@ -89,6 +91,7 @@ public class LoginController {
      * 用户退出
      */
     @PostMapping("/login/logout")
+    @Log(title = "用户退出", businessType = BusinessType.OTHER)
     public AjaxResult logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();

@@ -2,6 +2,8 @@ package xyz.ly11.controller.system;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import xyz.ly11.aspect.annotation.Log;
+import xyz.ly11.aspect.enums.BusinessType;
 import xyz.ly11.dto.DictDataDTO;
 import xyz.ly11.service.DictDataService;
 import xyz.ly11.utils.ShiroSecurityUtils;
@@ -32,7 +34,7 @@ public class DictDataController {
      * 分页查询
      */
     @GetMapping("listForPage")
-    public AjaxResult listForPage( DictDataDTO dictDataDTO) {
+    public AjaxResult listForPage(DictDataDTO dictDataDTO) {
         DataGridView gridView = this.dictDataService.listPage(dictDataDTO);
         return AjaxResult.success("查询成功", gridView.getData(), gridView.getTotal());
     }
@@ -41,7 +43,8 @@ public class DictDataController {
      * 添加
      */
     @PostMapping("addDictData")
-    public AjaxResult addDictData( @Validated DictDataDTO dictDataDTO) {
+    @Log(title = "添加字典数据", businessType = BusinessType.INSERT)
+    public AjaxResult addDictData(@Validated DictDataDTO dictDataDTO) {
         dictDataDTO.setSimpleUser(ShiroSecurityUtils.getCurrentSimpleUser());
         return AjaxResult.toAjax(this.dictDataService.insert(dictDataDTO));
     }
@@ -50,7 +53,8 @@ public class DictDataController {
      * 修改
      */
     @PutMapping("updateDictData")
-    public AjaxResult updateDictData( @Validated DictDataDTO dictDataDTO) {
+    @Log(title = "修改字典数据", businessType = BusinessType.UPDATE)
+    public AjaxResult updateDictData(@Validated DictDataDTO dictDataDTO) {
         dictDataDTO.setSimpleUser(ShiroSecurityUtils.getCurrentSimpleUser());
         return AjaxResult.toAjax(this.dictDataService.update(dictDataDTO));
     }
@@ -68,6 +72,7 @@ public class DictDataController {
      * 删除
      */
     @DeleteMapping("deleteDictDataByIds/{dictCodeIds}")
+    @Log(title = "删除字典数据", businessType = BusinessType.DELETE)
     public AjaxResult updateDictData(@PathVariable @Validated @NotEmpty(message = "需要要删除的字典数据ID不能为空") Long[] dictCodeIds) {
         return AjaxResult.toAjax(this.dictDataService.deleteDictDataByIds(dictCodeIds));
     }

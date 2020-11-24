@@ -2,6 +2,8 @@ package xyz.ly11.controller.system;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import xyz.ly11.aspect.annotation.Log;
+import xyz.ly11.aspect.enums.BusinessType;
 import xyz.ly11.dto.DictTypeDTO;
 import xyz.ly11.service.DictTypeService;
 import xyz.ly11.utils.ShiroSecurityUtils;
@@ -39,6 +41,7 @@ public class DictTypeController {
      * 添加
      */
     @PostMapping("addDictType")
+    @Log(title = "添加字典类型", businessType = BusinessType.INSERT)
     public AjaxResult addDictType(@Validated DictTypeDTO dictTypeDTO) {
         if (dictTypeService.checkDictTypeUnique(dictTypeDTO.getDictId(), dictTypeDTO.getDictType())) {
             return AjaxResult.fail("新增字典【" + dictTypeDTO.getDictName() + "】失败，字典类型已存在");
@@ -51,6 +54,7 @@ public class DictTypeController {
      * 修改
      */
     @PutMapping("updateDictType")
+    @Log(title = "修改字典类型", businessType = BusinessType.UPDATE)
     public AjaxResult updateDictType(@Validated DictTypeDTO dictTypeDTO) {
         if (dictTypeService.checkDictTypeUnique(dictTypeDTO.getDictId(), dictTypeDTO.getDictType())) {
             return AjaxResult.fail("修改字典【" + dictTypeDTO.getDictName() + "】失败，字典类型已存在");
@@ -72,6 +76,7 @@ public class DictTypeController {
      * 删除
      */
     @DeleteMapping("deleteDictTypeByIds/{dictIds}")
+    @Log(title = "删除字典类型", businessType = BusinessType.DELETE)
     public AjaxResult updateDictType(@PathVariable @Validated @NotEmpty(message = "要删除的ID不能为空") Long[] dictIds) {
         return AjaxResult.toAjax(this.dictTypeService.deleteDictTypeByIds(dictIds));
     }
@@ -89,6 +94,7 @@ public class DictTypeController {
      * 手动同步缓存至redis
      */
     @GetMapping("dictCacheAsync")
+    @Log(title = "同步字典数据", businessType = BusinessType.OTHER)
     public AjaxResult dictCacheAsync() {
         try {
             this.dictTypeService.dictCacheAsync();
