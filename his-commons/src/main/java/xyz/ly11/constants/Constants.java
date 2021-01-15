@@ -116,5 +116,17 @@ public interface Constants {
      * 数据字典缓存的key前缀
      */
     String DICT_REDIS_PREFIX ="dict:";
-}
 
+    /**
+     * 登陆状态  0 成功  1失败
+     */
+    String LOGIN_SUCCESS = "0";
+    String LOGIN_ERROR = "1";
+    /**
+     * 登陆类型0系统用户1患者用户
+     */
+    String LOGIN_TYPE_SYSTEM = "0" ;
+    String LOGIN_TYPE_PATIENT = "1" ;
+
+
+}

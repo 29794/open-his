@@ -2,6 +2,7 @@ package xyz.ly11.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class LoginInfoServiceImpl implements LoginInfoService {
     @Override
     public DataGridView listForPage(LoginInfoDTO loginInfoDTO) {
         Page<LoginInfo> page = new Page<>(loginInfoDTO.getPageNum(), loginInfoDTO.getPageSize());
+        // 实际开发中不推荐使用
         QueryWrapper<LoginInfo> qw = new QueryWrapper<>();
         qw.like(StringUtils.isNotBlank(loginInfoDTO.getUserName()), LoginInfo.COL_USER_NAME, loginInfoDTO.getUserName());
         qw.like(StringUtils.isNotBlank(loginInfoDTO.getIpAddr()), LoginInfo.COL_IP_ADDR, loginInfoDTO.getIpAddr());
@@ -62,4 +64,3 @@ public class LoginInfoServiceImpl implements LoginInfoService {
     }
 
 }
-

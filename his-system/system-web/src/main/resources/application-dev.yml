@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/bjsxt-his?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: root
+    password: foobared
     #注入数据源的类型   默认的为HikariDataSource
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -28,7 +28,7 @@ spring:
   redis:
     port: 6390
     host: 47.100.47.161   #116.45.1.15
-    password: yangling@2020
+    password: yangling@2021
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
   jackson:

@@ -1,8 +1,9 @@
 package xyz.ly11.controller.system;
 
+import cn.hutool.core.date.DateUtil;
+import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.validation.annotation.Validated;
@@ -14,10 +15,15 @@ import xyz.ly11.aspect.annotation.Log;
 import xyz.ly11.aspect.enums.BusinessType;
 import xyz.ly11.constants.Constants;
 import xyz.ly11.constants.HttpStatus;
+import xyz.ly11.domain.LoginInfo;
 import xyz.ly11.domain.Menu;
 import xyz.ly11.domain.SimpleUser;
 import xyz.ly11.dto.LoginBodyDTO;
 import xyz.ly11.service.MenuService;
+import xyz.ly11.service.impl.LoginInfoServiceImpl;
+import xyz.ly11.utils.AddressUtils;
+import xyz.ly11.utils.IpUtils;
+import xyz.ly11.utils.ShiroSecurityUtils;
 import xyz.ly11.vo.ActiveUser;
 import xyz.ly11.vo.AjaxResult;
 import xyz.ly11.vo.MenuTreeVO;
@@ -38,16 +44,19 @@ public class LoginController {
     final
     MenuService menuService;
 
-    public LoginController(MenuService menuService) {
+    final LoginInfoServiceImpl loginInfoService;
+
+    public LoginController(MenuService menuService, LoginInfoServiceImpl loginInfoService) {
         this.menuService = menuService;
+        this.loginInfoService = loginInfoService;
     }
 
     /**
      * 用户登录
      *
-     * @param loginBodyDTO
-     * @param request
-     * @return
+     * @param loginBodyDTO 登录信息
+     * @param request      请求
+     * @return 登录结果
      */
     @PostMapping("/login/doLogin")
     @Log(title = "用户登录", businessType = BusinessType.OTHER)
@@ -58,17 +67,52 @@ public class LoginController {
         //构造用户名和密码的token
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
+        //封装用户的登陆信息
+        LoginInfo loginInfo = createLoginInfo(request);
+        loginInfo.setLoginAccount(loginBodyDTO.getUsername());
         try {
             subject.login(token);
             //得到会话的token==也就是redis里面存的
             Serializable webToken = subject.getSession().getId();
             ajax.put(Constants.TOKEN, webToken);
-        } catch (AuthenticationException e) {
+            loginInfo.setLoginStatus(Constants.LOGIN_SUCCESS);
+            loginInfo.setUserName(ShiroSecurityUtils.getCurrentUserName());
+            loginInfo.setMsg("登陆成功");
+        } catch (Exception e) {
             log.error("用户名或密码不正确", e);
             ajax = AjaxResult.error(HttpStatus.ERROR, "用户名或密码不正确");
+            loginInfo.setLoginStatus(Constants.LOGIN_ERROR);
+            loginInfo.setMsg("用户名或密码不正确");
         }
+        loginInfoService.insertLoginInfo(loginInfo);
         return ajax;
+
     }
+
+    /**
+     * 得到用户的登陆信息
+     *
+     * @param request 登录请求
+     * @return 掉路日志
+     */
+    private LoginInfo createLoginInfo(HttpServletRequest request) {
+        LoginInfo loginInfo = new LoginInfo();
+        final UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        final String ip = IpUtils.getIpAddr(request);
+        String address = AddressUtils.getRealAddressByIP(ip);
+        loginInfo.setIpAddr(ip);
+        loginInfo.setLoginLocation(address);
+        // 获取客户端操作系统
+        String os = userAgent.getOperatingSystem().getName();
+        // 获取客户端浏览器
+        String browser = userAgent.getBrowser().getName();
+        loginInfo.setOs(os);
+        loginInfo.setBrowser(browser);
+        loginInfo.setLoginTime(DateUtil.date());
+        loginInfo.setLoginType(Constants.LOGIN_TYPE_SYSTEM);
+        return loginInfo;
+    }
+
 
     /**
      * 获取用户信息
