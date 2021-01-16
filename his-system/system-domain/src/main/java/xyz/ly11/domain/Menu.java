@@ -6,117 +6,114 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
- * @author by 29794
- * @date 2020/10/9 2:07
+ * @author 29794
+ * @date 1/16/2021 15:23
+ * 菜单权限表
  */
-/**
-    * 菜单权限表
-    */
-@ApiModel(value="xyz-ly11-domain-Menu")
+@ApiModel(value = "xyz-ly11-domain-Menu")
 @Data
-@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_menu")
-public class Menu extends BaseEntity {
+public class Menu implements Serializable {
+    private static final long serialVersionUID = -1148714039435644652L;
     /**
      * 菜单ID
      */
-    @TableId(value = "menu_id", type = IdType.INPUT)
-    @ApiModelProperty(value="菜单ID")
+    @TableId(value = "menu_id", type = IdType.AUTO)
+    @ApiModelProperty(value = "菜单ID")
     private Long menuId;
 
     /**
      * 父菜单ID
      */
     @TableField(value = "parent_id")
-    @ApiModelProperty(value="父菜单ID")
+    @ApiModelProperty(value = "父菜单ID")
     private Long parentId;
 
     /**
      * 父节点ID集合
      */
     @TableField(value = "parent_ids")
-    @ApiModelProperty(value="父节点ID集合")
+    @ApiModelProperty(value = "父节点ID集合")
     private String parentIds;
 
     /**
      * 菜单名称
      */
     @TableField(value = "menu_name")
-    @ApiModelProperty(value="菜单名称")
+    @ApiModelProperty(value = "菜单名称")
     private String menuName;
 
     /**
      * 菜单类型（M目录 C菜单 F按钮）
      */
     @TableField(value = "menu_type")
-    @ApiModelProperty(value="菜单类型（M目录 C菜单 F按钮）")
+    @ApiModelProperty(value = "菜单类型（M目录 C菜单 F按钮）")
     private String menuType;
 
     /**
      * 权限标识
      */
     @TableField(value = "percode")
-    @ApiModelProperty(value="权限标识")
+    @ApiModelProperty(value = "权限标识")
     private String percode;
 
     /**
      * 路由地址
      */
     @TableField(value = "`path`")
-    @ApiModelProperty(value="路由地址")
+    @ApiModelProperty(value = "路由地址")
     private String path;
 
     /**
      * 备注
      */
     @TableField(value = "remark")
-    @ApiModelProperty(value="备注")
+    @ApiModelProperty(value = "备注")
     private String remark;
 
     /**
      * 菜单状态（0正常 1停用）
      */
     @TableField(value = "`status`")
-    @ApiModelProperty(value="菜单状态（0正常 1停用）")
+    @ApiModelProperty(value = "菜单状态（0正常 1停用）")
     private String status;
 
     /**
      * 创建时间
      */
     @TableField(value = "create_time")
-    @ApiModelProperty(value="创建时间")
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     /**
      * 更新时间
      */
     @TableField(value = "update_time")
-    @ApiModelProperty(value="更新时间")
+    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
     /**
      * 创建者
      */
     @TableField(value = "create_by")
-    @ApiModelProperty(value="创建者")
+    @ApiModelProperty(value = "创建者")
     private String createBy;
 
     /**
      * 更新者
      */
     @TableField(value = "update_by")
-    @ApiModelProperty(value="更新者")
+    @ApiModelProperty(value = "更新者")
     private String updateBy;
 
     public static final String COL_MENU_ID = "menu_id";

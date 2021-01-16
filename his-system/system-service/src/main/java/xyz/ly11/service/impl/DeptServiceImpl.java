@@ -1,5 +1,6 @@
 package xyz.ly11.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -58,6 +59,7 @@ public class DeptServiceImpl implements DeptService {
         Dept dept = new Dept();
         BeanUtils.copyProperties(deptDTO, dept);
         dept.setCreateBy(deptDTO.getSimpleUser().getUserName());
+        dept.setCreateTime(DateUtil.date());
         return this.deptMapper.insert(dept);
     }
 
