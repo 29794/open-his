@@ -78,6 +78,4 @@ public interface MenuService {
     List<Long> getMenusIdsByRoleId(Long roleId);
 
 
-
-
 }

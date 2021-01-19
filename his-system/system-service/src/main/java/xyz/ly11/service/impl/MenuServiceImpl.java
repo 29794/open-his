@@ -10,8 +10,10 @@ import xyz.ly11.domain.Menu;
 import xyz.ly11.domain.SimpleUser;
 import xyz.ly11.dto.MenuDTO;
 import xyz.ly11.mapper.MenuMapper;
+import xyz.ly11.mapper.RoleMapper;
 import xyz.ly11.service.MenuService;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,8 +25,11 @@ public class MenuServiceImpl implements MenuService {
 
     private final MenuMapper menuMapper;
 
-    public MenuServiceImpl(MenuMapper menuMapper) {
+    private final RoleMapper roleMapper;
+
+    public MenuServiceImpl(MenuMapper menuMapper, RoleMapper roleMapper) {
         this.menuMapper = menuMapper;
+        this.roleMapper = roleMapper;
     }
 
     @Override
@@ -76,6 +81,7 @@ public class MenuServiceImpl implements MenuService {
     public int deleteMenuById(Long menuId) {
         //先删除role_menu的中间表的数据【后面再加】
         //再删除菜单或权限
+        this.roleMapper.deleteRoleMenuByMenuIds(Collections.singletonList(menuId));
         return this.menuMapper.deleteById(menuId);
     }
 
@@ -88,6 +94,8 @@ public class MenuServiceImpl implements MenuService {
     public List<Long> getMenusIdsByRoleId(Long roleId) {
         return this.menuMapper.queryMenuIdsByRoleId(roleId);
     }
+
+
 
 
 }
