@@ -15,6 +15,7 @@ import xyz.ly11.service.RoleService;
 import xyz.ly11.vo.DataGridView;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -85,9 +86,27 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void saveRoleMenu(Long roleId, Long[] menuIds) {
         //根据角色ID删除sys_role_menu的数据
-        this.roleMapper.deleteRoleMenuByRoleIds(Arrays.asList(roleId));
+        this.roleMapper.deleteRoleMenuByRoleIds(Collections.singletonList(roleId));
         for (Long menuId : menuIds) {
             this.roleMapper.saveRoleMenu(roleId, menuId);
+        }
+
+    }
+
+    @Override
+    public List<Long> getRoleIdsByUserId(Long userId) {
+        if(null==userId){
+            return Collections.emptyList();
+        }
+        return this.roleMapper.selectRoleIdsByUserId(userId);
+    }
+
+    @Override
+    public void saveRoleUser(Long userId, Long[] roleIds) {
+        //根据用户ID先删除sys_role_menu里面原来的数据
+        this.roleMapper.deleteRoleUserByUserIds(Collections.singletonList(userId));
+        for (Long roleId : roleIds) {
+            this.roleMapper.saveRoleUser(userId,roleId);
         }
 
     }

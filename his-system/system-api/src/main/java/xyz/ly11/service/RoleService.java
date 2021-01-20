@@ -70,19 +70,19 @@ public interface RoleService {
 
     /**
      * 根据用户ID查询用户拥有的角色IDS
-     * @param userId
-     * @return
+     *
+     * @param userId 用户的id
+     * @return 角色ids
      */
     List<Long> getRoleIdsByUserId(Long userId);
 
     /**
      * 保存角色和用户的关系
-     * @param userId
-     * @param roleIds
+     *
+     * @param userId  用户的的id
+     * @param roleIds 角色id
      */
     void saveRoleUser(Long userId, Long[] roleIds);
-
-
 
 
 }
