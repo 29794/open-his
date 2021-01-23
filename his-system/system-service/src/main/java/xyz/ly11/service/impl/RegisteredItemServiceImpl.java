@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import xyz.ly11.constants.Constants;
@@ -22,6 +23,7 @@ import java.util.List;
  * @date 1/20/2021 22:11
  * 挂号费用的业务接口的具体实现
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RegisteredItemServiceImpl implements RegisteredItemService {
@@ -62,6 +64,7 @@ public class RegisteredItemServiceImpl implements RegisteredItemService {
 
     @Override
     public int deleteRegisteredItemByIds(Long[] registeredItemIds) {
+        log.debug(Arrays.toString(registeredItemIds));
         List<Long> ids = Arrays.asList(registeredItemIds);
         if (ids.size() > 0) {
             return this.registeredItemMapper.deleteBatchIds(ids);

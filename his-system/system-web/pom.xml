@@ -92,6 +92,13 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>xyz.ly11</groupId>
+            <artifactId>erp-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

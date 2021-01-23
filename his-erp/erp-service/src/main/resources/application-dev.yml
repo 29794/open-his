@@ -32,10 +32,10 @@ mybatis-plus:
 #dubbo配置
 dubbo:
   config-center:
-    timeout: 10000 #显式声明连接zookeeper超时时间，默认3秒
+    timeout: 30000 #显式声明连接zookeeper超时时间，默认3秒
   application:
     name: his-erp-service
   registry:
-    address: zookeeper://47.100.47.161:2181
+    address: zookeeper://ly-az.com:2181
   consumer:
     check: false

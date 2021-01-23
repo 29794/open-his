@@ -75,6 +75,7 @@ public class RegisteredItemController {
     @DeleteMapping("deleteRegisteredItemByIds/{registeredItemIds}")
     @Log(title = "删除挂号项目", businessType = BusinessType.DELETE)
     public AjaxResult deleteRegisteredItemByIds(@PathVariable @Validated @NotEmpty(message = "要删除的ID不能为空") Long[] registeredItemIds) {
+        log.debug("{}======{}", registeredItemIds[0], registeredItemIds[1]);
         return AjaxResult.toAjax(this.registeredItemService.deleteRegisteredItemByIds(registeredItemIds));
     }
 
