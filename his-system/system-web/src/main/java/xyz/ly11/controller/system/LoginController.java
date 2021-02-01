@@ -93,7 +93,7 @@ public class LoginController {
      * 得到用户的登陆信息
      *
      * @param request 登录请求
-     * @return 掉路日志
+     * @return 登录日志
      */
     private LoginInfo createLoginInfo(HttpServletRequest request) {
         LoginInfo loginInfo = new LoginInfo();
