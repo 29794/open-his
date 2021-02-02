@@ -14,14 +14,17 @@ public class IdGeneratorSnowflake {
 
     private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
 
+    private static long workId = 0;
+
+    private static long dataCenterId = 1;
+
     private static Snowflake snowflake;
 
     static {
-        long workId = 0;
+
         try {
-            workId = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
-            log.info("当前机器的工作ID为:" + workId);
-            long dataCenterId = 1;
+//            workId = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
+//            log.info("当前机器的工作ID为:" + workId);
             snowflake=IdUtil.createSnowflake(workId, dataCenterId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,4 +48,3 @@ public class IdGeneratorSnowflake {
     }
 
 }
-
