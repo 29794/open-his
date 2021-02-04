@@ -217,14 +217,13 @@ public class PurchaseController {
         Purchase purchase = this.purchaseService.getPurchaseById(purchaseId);
         if (purchase.getStatus().equals(Constants.STOCK_PURCHASE_STATUS_3)) {
             //进行入库
-            return AjaxResult.toAjax(this.purchaseService.doInventory(purchaseId,ShiroSecurityUtils.getCurrentSimpleUser()));
+            return AjaxResult.toAjax(this.purchaseService.doInventory(purchaseId, ShiroSecurityUtils.getCurrentSimpleUser()));
         } else if (purchase.getStatus().equals(Constants.STOCK_PURCHASE_STATUS_6)) {
             return AjaxResult.fail("采购单【" + purchaseId + "】已入库，不能重复入库");
         } else {
             return AjaxResult.fail("采购单【" + purchaseId + "】没有审核通过，不能入库");
         }
     }
-
 
 
 }

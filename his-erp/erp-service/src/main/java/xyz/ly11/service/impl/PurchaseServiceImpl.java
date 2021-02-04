@@ -4,11 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.ly11.constants.Constants;
 import xyz.ly11.domain.*;
@@ -35,7 +34,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PurchaseServiceImpl extends ServiceImpl<PurchaseMapper, Purchase> implements PurchaseService {
+public class PurchaseServiceImpl implements PurchaseService {
 
     final PurchaseMapper purchaseMapper;
 
