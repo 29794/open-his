@@ -97,6 +97,13 @@
             <artifactId>erp-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <!--依赖doctor-api-->
+        <dependency>
+            <groupId>xyz.ly11</groupId>
+            <artifactId>doctor-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
 
 
     </dependencies>

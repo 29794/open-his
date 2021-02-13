@@ -119,4 +119,13 @@ public class UserServiceImpl implements UserService {
             this.userMapper.updateById(user);
         }
     }
+
+    @Override
+    public List<User> querySchedulingUsers(Long userId, Long deptId) {
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.eq(null != deptId, User.COL_DEPT_ID, deptId);
+        qw.eq(null != userId, User.COL_USER_ID, userId);
+        qw.eq(User.COL_SCHEDULING_FLAG, Constants.SCHEDULING_FLAG_TRUE);
+        return this.userMapper.selectList(qw);
+    }
 }
