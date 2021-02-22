@@ -37,5 +37,8 @@ dubbo:
     name: his-erp-service
   registry:
     address: zookeeper://ly-az.com:2181
+  protocol:
+    name: dubbo
+    port: 20881
   consumer:
     check: false

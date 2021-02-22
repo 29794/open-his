@@ -75,5 +75,8 @@ dubbo:
     name: his-system-web-service
   registry:
     address: zookeeper://ly-az.com:2181
+  protocol:
+    name: dubbo
+    port: 20880
   consumer:
     check: false
