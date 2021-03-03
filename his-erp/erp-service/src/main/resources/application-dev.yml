@@ -39,6 +39,6 @@ dubbo:
     address: zookeeper://ly-az.com:2181
   protocol:
     name: dubbo
-    port: 20881
+    port: 20881 # 这个端口需要显示的指定一下，不然容易端口冲突
   consumer:
     check: false

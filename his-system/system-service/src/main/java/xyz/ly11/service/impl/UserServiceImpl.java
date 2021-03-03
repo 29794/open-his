@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import xyz.ly11.constants.Constants;
 import xyz.ly11.domain.User;
 import xyz.ly11.dto.UserDTO;
-import xyz.ly11.mapper.DeptMapper;
 import xyz.ly11.mapper.RoleMapper;
 import xyz.ly11.mapper.UserMapper;
 import xyz.ly11.service.UserService;
@@ -30,8 +29,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-    private final DeptMapper deptMapper;
-
     private final RoleMapper roleMapper;
 
 
@@ -49,7 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public DataGridView listUserForPage(UserDTO userDTO) {
+        // 构建分页条件
         Page<User> page = new Page<>(userDTO.getPageNum(), userDTO.getPageSize());
+        // 构建查询条件
         QueryWrapper<User> qw = new QueryWrapper<>();
         qw.like(StringUtils.isNotBlank(userDTO.getUserName()), User.COL_USER_NAME, userDTO.getUserName());
         qw.like(StringUtils.isNotBlank(userDTO.getPhone()), User.COL_PHONE, userDTO.getPhone());
@@ -67,11 +66,14 @@ public class UserServiceImpl implements UserService {
     public int addUser(UserDTO userDTO) {
         User user = new User();
         BeanUtil.copyProperties(userDTO, user);
+        // 设置用户类型
         user.setUserType(Constants.USER_NORMAL);
+        // 设置默认密码
         String defaultPwd = user.getPhone().substring(5);
         user.setCreateBy(userDTO.getSimpleUser().getUserName());
         user.setCreateTime(DateUtil.date());
         user.setSalt(AppMd5Utils.createSalt());
+        // md5 加盐加密（如果不想自己实现也可以使用HuTool工具类）
         user.setPassword(AppMd5Utils.md5(defaultPwd, user.getSalt(), 2));
         return this.userMapper.insert(user);
     }
@@ -83,6 +85,7 @@ public class UserServiceImpl implements UserService {
             return 0;
         }
         BeanUtil.copyProperties(userDTO, user);
+        // 设置修改人
         user.setUpdateBy(userDTO.getSimpleUser().getUserName());
         return this.userMapper.updateById(user);
     }
@@ -90,13 +93,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteUserByIds(Long[] userIds) {
         List<Long> ids = Arrays.asList(userIds);
-        //根据用户IDS删除sys_role_user里面的数据
+        //根据用户IDS删除sys_role_user里面的关联数据（实际开发需要做逻辑删除的）
         this.roleMapper.deleteRoleUserByUserIds(ids);
         return this.userMapper.deleteBatchIds(ids);
     }
 
     @Override
     public List<User> getAllUsers() {
+        // g构建查询条件
         QueryWrapper<User> qw = new QueryWrapper<>();
         qw.eq(User.COL_STATUS, Constants.STATUS_TRUE);
         qw.eq(User.COL_USER_TYPE, Constants.USER_NORMAL);
@@ -106,9 +110,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void resetPassWord(Long[] userIds) {
-        for (Long userId : userIds) {
+        Arrays.asList(userIds).forEach(userId -> {
+            // 这里没有判空是因为数据正常进来是正确的
             User user = this.userMapper.selectById(userId);
             String defaultPwd = "";
+            // 超级管理猿的密码不是手机号码的后六位
             if (user.getUserType().equals(Constants.USER_ADMIN)) {
                 defaultPwd = "123456";
             } else {
@@ -117,7 +123,7 @@ public class UserServiceImpl implements UserService {
             user.setSalt(AppMd5Utils.createSalt());
             user.setPassword(AppMd5Utils.md5(defaultPwd, user.getSalt(), 2));
             this.userMapper.updateById(user);
-        }
+        });
     }
 
     @Override

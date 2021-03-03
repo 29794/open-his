@@ -26,6 +26,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "sys_user")
+// 这个注解可以忽略返回给前端的Json中的一些属性
 @JsonIgnoreProperties(value = {"salt", "password", "unionId", "openId"})
 public class User extends BaseEntity {
     private static final long serialVersionUID = 433208870543693499L;

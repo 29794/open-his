@@ -37,5 +37,8 @@ dubbo:
     name: his-doctor-service
   registry:
     address: zookeeper://47.100.47.161:2181
+  protocol:
+    name: dubbo
+    port: 20880 # 这个端口默认是20880，dubbo默认是递增的，但是没有显示指定的话容易出现端口冲突
   consumer:
     check: false

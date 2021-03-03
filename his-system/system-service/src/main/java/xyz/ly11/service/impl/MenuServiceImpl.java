@@ -80,8 +80,8 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int deleteMenuById(Long menuId) {
         //先删除role_menu的中间表的数据【后面再加】
-        //再删除菜单或权限
         this.roleMapper.deleteRoleMenuByMenuIds(Collections.singletonList(menuId));
+        //再删除菜单或权限
         return this.menuMapper.deleteById(menuId);
     }
 

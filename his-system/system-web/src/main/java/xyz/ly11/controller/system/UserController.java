@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @author 29794
  * @date 1/19/2021 19:59
- * 用户接口
+ * 用户管理API接口
  */
 @Slf4j
 @RestController
@@ -99,7 +99,7 @@ public class UserController {
      * @param userIds 用户的id
      * @return 重置结果
      */
-    @PostMapping("/resetPwd/{userIds:\\d+}")
+    @PostMapping("/resetPwd/{userIds}")
     public AjaxResult resetPwd(@PathVariable Long[] userIds) {
         if (userIds.length > 0) {
             this.userService.resetPassWord(userIds);
