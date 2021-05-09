@@ -17,6 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 public class LoginInfoDTO extends BaseDTO {
 
+    private static final long serialVersionUID = -4184684876763746464L;
     /**
      * 用户名称
      */

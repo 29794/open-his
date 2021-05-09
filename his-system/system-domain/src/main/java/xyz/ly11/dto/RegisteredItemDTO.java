@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
  * @date 1/20/2021 22:11
  * 挂号项目
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "xyz-ly11-domain-RegisteredItemDTO")
 @Data
 @AllArgsConstructor
