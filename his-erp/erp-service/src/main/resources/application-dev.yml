@@ -36,7 +36,7 @@ dubbo:
   application:
     name: his-erp-service
   registry:
-    address: zookeeper://ly-az.com:2181
+    address: zookeeper://113.31.118.68:2181
   protocol:
     name: dubbo
     port: 20881 # 这个端口需要显示的指定一下，不然容易端口冲突

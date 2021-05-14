@@ -74,7 +74,7 @@ dubbo:
   application:
     name: his-system-web-service
   registry:
-    address: zookeeper://47.100.47.161:2181
+    address: zookeeper://113.31.118.68:2181
   protocol:
     name: dubbo
     port: 20880

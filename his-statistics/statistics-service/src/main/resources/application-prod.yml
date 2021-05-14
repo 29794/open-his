@@ -36,7 +36,7 @@ dubbo:
   application:
     name: his-statistics-service
   registry:
-    address: zookeeper://47.100.47.161:2181
+    address: zookeeper://113.31.118.68:2181
   protocol:
     name: dubbo
     port: 20882 #这个端口需要指定一下，不然容易出现端口冲突
