@@ -42,7 +42,7 @@ public class LoginInfoDTO extends BaseDTO {
     @ApiModelProperty(value = "登录状态（0成功 1失败）字典表")
     private String loginStatus;
 
-    /**
+    /**scoop
      * 登陆类型：0系统用户1患者用户 字典表
      */
     @ApiModelProperty(value = "登陆类型0系统用户1患者用户 字典表")
