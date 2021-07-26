@@ -25,7 +25,7 @@ public interface CheckItemService {
      * 根据ID查询
      *
      * @param checkItemId 检查项目的id
-     * @return
+     * @return 查询得到的检查项目
      */
     CheckItem getOne(Long checkItemId);
 
