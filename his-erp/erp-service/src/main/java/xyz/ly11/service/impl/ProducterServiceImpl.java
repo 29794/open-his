@@ -25,7 +25,7 @@ import java.util.List;
  * 生产厂家的业务接口的实现
  */
 @Slf4j
-@Service(methods = {@Method(name = "addProducter",retries = 0)})
+@Service(methods = {@Method(name = "addProducter",retries = 0)})/*注意使用的是 Dubbo 的Service注解*/
 @RequiredArgsConstructor
 public class ProducterServiceImpl implements ProducterService {
 
@@ -40,7 +40,9 @@ public class ProducterServiceImpl implements ProducterService {
         qw.eq(StringUtils.isNotBlank(producterDTO.getProducterTel()), Producter.COL_PRODUCTER_TEL, producterDTO.getProducterTel());
         qw.eq(StringUtils.isNotBlank(producterDTO.getStatus()), Producter.COL_STATUS, producterDTO.getStatus());
 
+        // 大于
         qw.ge(producterDTO.getBeginTime() != null, Producter.COL_CREATE_TIME, producterDTO.getBeginTime());
+        // 小于
         qw.le(producterDTO.getEndTime() != null, Producter.COL_CREATE_TIME, producterDTO.getEndTime());
         this.producterMapper.selectPage(page, qw);
         return new DataGridView(page.getTotal(), page.getRecords());

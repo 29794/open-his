@@ -24,7 +24,7 @@ import java.util.List;
  * 供应商业务实现
  */
 @RequiredArgsConstructor
-@Service(methods = {@Method(name = "addProvider", retries = 0)})
+@Service(version ="1.0",methods = {@Method(name = "addProvider", retries = 0)})
 public class ProviderServiceImpl implements ProviderService {
 
     final ProviderMapper providerMapper;

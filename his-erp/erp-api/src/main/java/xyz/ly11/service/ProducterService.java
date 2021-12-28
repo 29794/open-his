@@ -55,6 +55,7 @@ public interface ProducterService {
 
     /**
      * 查询所有可用的生产厂家
+     * @return 所有可以的生产厂家
      */
     List<Producter> selectAllProducter();
 
