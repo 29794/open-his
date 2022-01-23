@@ -91,7 +91,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!--依赖ERP-API-->
         <dependency>
             <groupId>xyz.ly11</groupId>
             <artifactId>erp-api</artifactId>

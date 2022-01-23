@@ -15,6 +15,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 public class MyBatisPlusConfig {
 
+    /**
+     * 这里配置的是全据的分页
+     *
+     * @return 分页处理拦截器
+     */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
