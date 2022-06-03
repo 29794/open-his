@@ -7,6 +7,9 @@ import xyz.ly11.vo.AjaxResult;
  * @author 29794
  * @date 1/22/2021 23:49
  */
+/*
+声明服务调用不可用的时候该调用的方法，
+*/
 @DefaultProperties(defaultFallback = "fallback")
 public class BaseController {
     /**

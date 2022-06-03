@@ -16,8 +16,8 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @SpringBootApplication
 @MapperScan(basePackages = {"xyz.ly11.mapper"})
 @EnableDubbo
-@EnableHystrix //启用hystrix
-@EnableCircuitBreaker  //启用Hystrix的断路保存
+@EnableHystrix // 启用 Hystrix
+@EnableCircuitBreaker  // 启用 Hystrix 的断路保存
 public class SystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SystemApplication.class, args);

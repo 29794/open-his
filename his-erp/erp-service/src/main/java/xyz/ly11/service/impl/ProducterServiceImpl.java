@@ -25,7 +25,12 @@ import java.util.List;
  * 生产厂家的业务接口的实现
  */
 @Slf4j
-@Service(methods = {@Method(name = "addProducter",retries = 0)})/*注意使用的是 Dubbo 的Service注解*/
+/*
+注意使用的是 Dubbo 的Service注解
+注意 Dubbo 的重试机制，Dubbo 调用失败的时候会重试两次，加上本身的一次请求，一共调用 3 次，注意非幂等的方法设置为不重试
+timeout 设置的超时时间
+*/
+@Service(methods = {@Method(name = "addProducter",retries = 0)},timeout = 5000)
 @RequiredArgsConstructor
 public class ProducterServiceImpl implements ProducterService {
 
@@ -73,7 +78,7 @@ public class ProducterServiceImpl implements ProducterService {
     @Override
     public int deleteProducterByIds(Long[] producterIds) {
         List<Long> ids = Arrays.asList(producterIds);
-        if (ids.size() > 0) {
+        if (!ids.isEmpty()) {
             return this.producterMapper.deleteBatchIds(ids);
         }
         return 0;

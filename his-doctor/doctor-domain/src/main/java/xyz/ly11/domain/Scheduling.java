@@ -12,12 +12,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 排班信息表
  * @author 29794
  * @date 2/12/2021 11:40
- */
-
-/**
- * 排班信息表
  */
 @ApiModel(value = "xyz-ly11-domain-Scheduling")
 @Data

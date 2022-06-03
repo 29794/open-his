@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xyz.ly11.aspect.annotation.Log;
 import xyz.ly11.aspect.enums.BusinessType;
+import xyz.ly11.controller.BaseController;
 import xyz.ly11.dto.ProducterDTO;
 import xyz.ly11.service.ProducterService;
 import xyz.ly11.utils.ShiroSecurityUtils;
@@ -19,12 +20,12 @@ import javax.validation.constraints.NotNull;
 /**
  * @author 29794
  * @date 1/22/2021 22:13
- * 生产厂家的api
+ * 生产厂家的 api
  */
 @RequestMapping("/erp/producter")
 @Slf4j
 @RestController
-public class ProducterController {
+public class ProducterController extends BaseController {
 
     @Reference
     private ProducterService producterService;

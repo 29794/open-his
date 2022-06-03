@@ -27,6 +27,7 @@
             <version>1.0</version>
         </dependency>
 
+        <!--hystrix 服务熔断-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
