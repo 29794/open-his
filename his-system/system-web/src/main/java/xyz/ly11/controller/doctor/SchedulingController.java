@@ -29,10 +29,10 @@ import java.util.*;
 public class SchedulingController extends BaseController {
 
     @Reference
-    SchedulingService schedulingService;
+    private SchedulingService schedulingService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
      * 查询排班的医生信息

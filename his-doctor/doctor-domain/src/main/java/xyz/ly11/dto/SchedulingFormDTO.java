@@ -34,8 +34,14 @@ public class SchedulingFormDTO implements Serializable {
 
         private Long deptId;
 
+        /**
+         * 上午，下午，晚上
+         */
         private String subsectionType;
 
+        /**
+         * 星期的值班数据
+         */
         private Collection<String> schedulingType;
 
     }

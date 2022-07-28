@@ -33,7 +33,7 @@ public class PurchaseController {
 
 
     @Reference
-    PurchaseService purchaseService;
+    private PurchaseService purchaseService;
 
     /**
      * 分页查询
@@ -153,7 +153,7 @@ public class PurchaseController {
     @Log(title = "采购单管理--暂存采购单位和详情数据", businessType = BusinessType.INSERT)
     public AjaxResult addPurchase(@RequestBody PurchaseFormDTO purchaseFormDTO) {
         //判断当前采购单的状态
-        if (!checkPurchase(purchaseFormDTO)) {
+        if (checkPurchase(purchaseFormDTO)) {
             return AjaxResult.fail("当前单据状态不是【未提交】或【审核失败】状态，不能进行修改");
         }
         purchaseFormDTO.getPurchaseDto().setSimpleUser(ShiroSecurityUtils.getCurrentSimpleUser());
@@ -168,7 +168,7 @@ public class PurchaseController {
     @Log(title = "采购单管理--添加并提交审核采购单位和详情数据", businessType = BusinessType.INSERT)
     public AjaxResult addPurchaseToAudit(@RequestBody PurchaseFormDTO purchaseFormDTO) {
         //判断当前采购单的状态
-        if (!checkPurchase(purchaseFormDTO)) {
+        if (checkPurchase(purchaseFormDTO)) {
             return AjaxResult.fail("当前单据状态不是【未提交】或【审核失败】状态，不能进行修改");
         }
         purchaseFormDTO.getPurchaseDto().setSimpleUser(ShiroSecurityUtils.getCurrentSimpleUser());
